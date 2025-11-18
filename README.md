@@ -37,11 +37,14 @@ Avoid commands that open windows or graphical interfaces. If you need to chain m
 2. Set the configuration to `Release` and the platform to `x64`
 3. Go to `Build` → `Build Solution` to compile the executable
 
-### Developer Command Prompt for VS 2022
+### MSBuild
+
+If you prefer building from the command line, you can compile the project using MSBuild.
 
 ```
 msbuild svcexec.sln /m /p:Configuration=Release;Platform=x64
 ```
+
 
 
 
