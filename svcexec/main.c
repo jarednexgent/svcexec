@@ -6,7 +6,6 @@
 #define CMD_EXE_LIMIT           8191
 #define SERVICE_RESTART_DELAY   5000
 
-
 #define PRINTW( STR, ... )                                                                                \
     do {                                                                                                  \
         LPWSTR lpBuffer = (LPWSTR)HeapAlloc( GetProcessHeap(), HEAP_ZERO_MEMORY, 1024 * sizeof(WCHAR) );  \
@@ -256,12 +255,13 @@ static BOOL ParseCmdLineArgs(int *pArgc, LPCWSTR** ppArgv) {
 
 
 __declspec(noreturn) void EntryCRTless(void) {
-    INT       argc = 0; 
-    LPCWSTR*  argv;
-    LPWSTR    lpRemoteCommand;
-    HANDLE    hToken;
-    SC_HANDLE hScm;
-    SERVICE   RemoteService;
+
+    INT       argc = 0;
+    LPCWSTR*  argv = NULL;
+    LPWSTR    lpRemoteCommand = NULL;
+    HANDLE    hToken = NULL;
+    SC_HANDLE hScm = NULL;
+    SERVICE   RemoteService = { 0 };
     BOOL      bSuccess = FALSE;
 
     if (!ParseCmdLineArgs(&argc, &argv)) 
@@ -272,7 +272,6 @@ __declspec(noreturn) void EntryCRTless(void) {
     LPCWSTR   wRemoteHost   = argv[3];
     LPCWSTR   wDomain       = (argc >= 5) ? argv[4] : wRemoteHost;
     
-
     if (!ReadUserCommand(CMD_EXE_LIMIT, &lpRemoteCommand)) {
         PRINTW("[-] No command entered\n");
         goto CLEANUP;
